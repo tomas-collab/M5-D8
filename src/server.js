@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import { join } from "path"
 import listEndPoints from 'express-list-endpoints'
 import authorsRouter from './services/authors/index.js'
 import fileRouter from './services/files/index.js'
@@ -8,7 +9,7 @@ import { notFoundErrorHandler, forbiddenErrorHandler, badRequestErrorHandler, ge
 const server = express()
 const port = process.env.PORT
 
-
+const publicFolderPath = join(process.cwd(), "public")
 const whitelist= [process.env.FE_DEV_URL, process.env.FE_PROD_URL]
 
 const corsOpts = {
@@ -23,6 +24,7 @@ const corsOpts = {
 }
 
 //global middleware
+server.use(express.static(publicFolderPath))
 server.use(cors())
 server.use(express.json())
 server.use(cors(corsOpts))
