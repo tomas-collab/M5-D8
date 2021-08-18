@@ -25,7 +25,7 @@ const corsOpts = {
 
 //global middleware
 server.use(express.static(publicFolderPath))
-server.use(cors())
+
 server.use(express.json())
 server.use(cors(corsOpts))
 
