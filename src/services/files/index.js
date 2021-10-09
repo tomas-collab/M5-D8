@@ -1,6 +1,7 @@
 import express from 'express'
 import multer from 'multer'
 import { PostPicture } from '../../lib/fs-tool.js'
+import { getPDFReadableStream } from '../../lib/pdf.js'
 // import {cloudStorage} from 'multer-storage-cloudinary'
 import { pipeline } from 'stream'
 
@@ -30,7 +31,7 @@ fileRouter.post("/upload", multer({}).single("blogPic"), async (req, res, next) 
     try {
       const filename = "file.pdf"
       res.setHeader("Content-Disposition", `attachment; filename=${filename}`) 
-      const source = getPDFReadableStream({ firstName: "tomas", lastName: "berhane" })
+      const source = getPDFReadableStream()
       const destination = res
   
       pipeline(source, destination, err => {
